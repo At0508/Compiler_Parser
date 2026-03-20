@@ -1,0 +1,38 @@
+_brokenFunc input parameter list[int b2, int b3]
+output parameter  [int b4];
+	type real : d4cbcccccccccccccbbbbbbbbdddd5222222222222633333333;
+	type int : d7;
+	d7 <-- b2;
+	d7 <--- 5000.7;
+	if((b2 > b3) && (b3 > 0))
+	then
+		d7 <--- b2 + b3;
+	else
+		d7 <--- b2 - b3;
+	endif
+	b4 <--- d7;
+	return [b4];
+end
+
+_safeFunc input parameter list[int b2]
+output parameter list[int b3];
+	type int : d7;
+	d7 <--- b2 * 3 + 1;
+	if(d7 > 100)
+	then
+		d7 <--- 100;
+	endif
+	b3 <--- d7;
+	return [b3];
+end
+
+_main
+	type int : b5;
+	type real : c3;
+	type $int : d7;
+	b5 <--- 7;
+	[b5] <--- call _brokenFunc with parameters [b5, b5];
+	[b5] <--- call _safeFunc with parameters [b5];
+	write(b5);
+	return;
+end

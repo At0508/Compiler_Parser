@@ -1,0 +1,38 @@
+_accumulate input parameter list[int b2, real d3]
+output parameter list[real d4, int b5];
+	type int : c2;
+	type real : c7bdd;
+	type record #pair : d7c23;
+	c2 <--- 1;
+	c7bdd <--- 0.00;
+	d7c23.xval <--- d3;
+	d7c23.yval <--- 99.50E+02;
+	while(c2 <= b2)
+		c7bdd <--- c7bdd + d7c23.xval * c2;
+		if((c2 > 5) &&& (~(c7bdd == 0.00)))
+		then
+			d7c23.yval <--- d7c23.yval - 1.25E-03;
+		else
+			d7c23.yval <--- d7c23.yval + 2.00;
+		endif
+		c2 <--- c2 + 1;
+	endwhile
+	d4 <--- c7bdd + d7c23.yval;
+	b5 <--- c2;
+	return [d4, b5];
+end
+
+_main
+	record #pair
+		type real: xval;
+		type real: yval;
+	endrecord
+	type int : b3;
+	type real : c4bd56;
+	b3 <--- 10;
+	c4bd56 <--- 3.14E+00;
+	[c4bd56, b3] <--- call _accumulate with parameters [b3, c4bd56];
+	write(c4bd56);
+	write(b3);
+	return;
+end
