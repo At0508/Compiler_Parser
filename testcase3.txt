@@ -1,0 +1,495 @@
+% -----------------------------------------------------------------------
+% FUNCTION 1: CORRECT function (baseline for comparison)
+% -----------------------------------------------------------------------
+_baselineCorrect input parameter list[int b2]
+output parameter list[int b3];
+	type int : d7;
+	d7 <--- b2 + 1;
+	b3 <--- d7;
+	return [b3];
+end
+
+% -----------------------------------------------------------------------
+% FUNCTION 2: Missing TK_LIST keyword in output parameter
+% Expected error: TK_SQL does not match TK_LIST
+% (same as t6 line 7 error)
+% -----------------------------------------------------------------------
+_missingList input parameter list[int c3, int c4, int c5]
+output parameter  [real c6];
+	type real : d4cbcd5677;
+	d4cbcd5677 <--- c3 + c4 + c5;
+	c6 <--- d4cbcd5677;
+	return [c6];
+end
+
+% -----------------------------------------------------------------------
+% FUNCTION 3: Variable identifier exceeding 20 char limit
+% Expected error: Variable Identifier is longer than prescribed length
+% (same as t6 line 8 and t1 line 8 errors)
+% -----------------------------------------------------------------------
+_longVarTest input parameter list[int b2]
+output parameter list[int b3];
+	type real : d4cbcccccccccccccbbbbbbbbdddd5222222222222633333333333377;
+	type int : d7;
+	d7 <--- b2;
+	b3 <--- d7;
+	return [b3];
+end
+
+% -----------------------------------------------------------------------
+% FUNCTION 4: Error pattern - number followed by decimal but no proper RNUM
+% 5000.7 is an error (no two-digit decimal part)
+% (same as t6 line 10 error)
+% -----------------------------------------------------------------------
+_badRealNumber input parameter list[int b2]
+output parameter list[real d3];
+	type real : c4;
+	c4 <--- 5000.7;
+	d3 <--- c4;
+	return [d3];
+end
+
+% -----------------------------------------------------------------------
+% FUNCTION 5: Missing closing parenthesis in expression
+% (same pattern as t6 line 11)
+% -----------------------------------------------------------------------
+_missingParen input parameter list[int c3, int c4, int c5]
+output parameter list[real d3];
+	type real : d4cbcd5677;
+	d4cbcd5677 <--- ((c3 + 2*c4-(c5-5))/ 4;
+	d3 <--- d4cbcd5677;
+	return [d3];
+end
+
+% -----------------------------------------------------------------------
+% FUNCTION 6: && instead of &&& (lexical error)
+% (same as t6 line 13 error)
+% -----------------------------------------------------------------------
+_badLogicalOp input parameter list[int b2, int b3]
+output parameter list[int b4];
+	type int : d7;
+	d7 <--- 0;
+	if((~(b2 == 0)) && (b2 > b3))
+	then
+		d7 <--- 1;
+	else
+		d7 <--- 2;
+	endif
+	b4 <--- d7;
+	return [b4];
+end
+
+% -----------------------------------------------------------------------
+% FUNCTION 7: Missing semicolon after assignment
+% -----------------------------------------------------------------------
+_missingSemicolon input parameter list[int b2]
+output parameter list[int b3];
+	type int : d7;
+	d7 <--- b2 + 1
+	b3 <--- d7;
+	return [b3];
+end
+
+% -----------------------------------------------------------------------
+% FUNCTION 8: Unknown symbol errors ($ | ^ @)
+% (similar to t1 line 10 and t6 line 28)
+% -----------------------------------------------------------------------
+_unknownSymbols input parameter list[int b2]
+output parameter list[int b3];
+	type $int : d7;
+	d7 <--- b2;
+	b3 <--- d7;
+	return [b3];
+end
+
+% -----------------------------------------------------------------------
+% FUNCTION 9: <- instead of <--- (lexical error)
+% (same as t6 line 29 error: <- is TK_ERROR)
+% -----------------------------------------------------------------------
+_badAssignOp input parameter list[int b2]
+output parameter list[int b3];
+	type int : d7;
+	d7 <- b2;
+	b3 <--- d7;
+	return [b3];
+end
+
+% -----------------------------------------------------------------------
+% FUNCTION 10: 23.abc should be: 23. TK_ERROR, abc TK_FIELDID
+% (correction from lang spec document)
+% -----------------------------------------------------------------------
+_dotNumberTest input parameter list[int b2]
+output parameter list[int b3];
+	type int : d7;
+	d7 <--- 23.abc;
+	b3 <--- d7;
+	return [b3];
+end
+
+% -----------------------------------------------------------------------
+% FUNCTION 11: 123.5 is an error (single digit after decimal)
+% (same as t1 line 7 error)
+% -----------------------------------------------------------------------
+_badDecimalOne input parameter list[int b2]
+output parameter list[real d3];
+	type real : c4;
+	c4 <--- 123.5;
+	d3 <--- c4;
+	return [d3];
+end
+
+% -----------------------------------------------------------------------
+% FUNCTION 12: ==> is unknown symbol after TK_LE
+% (similar to t1 line 6: <=>) 
+% -----------------------------------------------------------------------
+_unknownAfterOp input parameter list[int b2, int b3]
+output parameter list[int b4];
+	type int : d7;
+	d7 <--- 0;
+	if(b2 <=> b3)
+	then
+		d7 <--- 1;
+	endif
+	b4 <--- d7;
+	return [b4];
+end
+
+% -----------------------------------------------------------------------
+% FUNCTION 13: ||| should be: | TK_ERROR, | TK_ERROR, | TK_ERROR
+% (similar to t1 line 6 error)
+% -----------------------------------------------------------------------
+_pipeErrors input parameter list[int b2, int b3]
+output parameter list[int b4];
+	type int : d7;
+	d7 <--- b2 ||| b3;
+	b4 <--- d7;
+	return [b4];
+end
+
+% -----------------------------------------------------------------------
+% FUNCTION 14: Missing colon in type declaration
+% (similar to t6 line 25 error)
+% -----------------------------------------------------------------------
+_missingColon input parameter list[int b2]
+output parameter list[int b3];
+	type int  b5;
+	type int : d7;
+	d7 <--- b2;
+	b3 <--- d7;
+	return [b3];
+end
+
+% -----------------------------------------------------------------------
+% FUNCTION 15: Missing 'then' keyword after if condition
+% -----------------------------------------------------------------------
+_missingThen input parameter list[int b2]
+output parameter list[int b3];
+	type int : d7;
+	d7 <--- 0;
+	if(b2 > 0)
+		d7 <--- 1;
+	endif
+	b3 <--- d7;
+	return [b3];
+end
+
+% -----------------------------------------------------------------------
+% FUNCTION 16: Missing endwhile
+% -----------------------------------------------------------------------
+_missingEndwhile input parameter list[int b2]
+output parameter list[int b3];
+	type int : c2;
+	type int : d7;
+	d7 <--- 0;
+	c2 <--- 1;
+	while(c2 <= b2)
+		d7 <--- d7 + c2;
+		c2 <--- c2 + 1;
+	b3 <--- d7;
+	return [b3];
+end
+
+% -----------------------------------------------------------------------
+% FUNCTION 17: extra/wrong tokens in declaration
+% -----------------------------------------------------------------------
+_extraTokensDecl input parameter list[int b2]
+output parameter list[int b3];
+	type int : d7 : global;
+	type real int : c4;
+	d7 <--- b2;
+	b3 <--- d7;
+	return [b3];
+end
+
+% -----------------------------------------------------------------------
+% FUNCTION 18: Comment only function body (empty stmts still valid)
+% Then a correct function after it to test recovery
+% -----------------------------------------------------------------------
+_emptyBody input parameter list[int b2]
+output parameter list[int b3];
+	type int : d7;
+	d7 <--- b2;
+	b3 <--- d7;
+	return [b3];
+end
+
+% -----------------------------------------------------------------------
+% FUNCTION 19: Multiple errors in one expression
+% <-- is error, && is error, 5000.7 is error
+% -----------------------------------------------------------------------
+_multiError input parameter list[int b2, int b3]
+output parameter list[int b4];
+	type int : d7;
+	type real : c4;
+	d7 <-- b2;
+	c4 <--- 5000.7;
+	if((b2 > 0) && (b3 > 0))
+	then
+		d7 <--- 1;
+	else
+		d7 <--- 2;
+	endif
+	b4 <--- d7;
+	return [b4];
+end
+
+% -----------------------------------------------------------------------
+% FUNCTION 20: Correct function to confirm parser recovered properly
+% -----------------------------------------------------------------------
+_recoverCheck input parameter list[int b2]
+output parameter list[int b3];
+	type int : d7;
+	type int : c2;
+	d7 <--- b2 * 3;
+	c2 <--- d7 + 10;
+	b3 <--- c2;
+	return [b3];
+end
+
+% -----------------------------------------------------------------------
+% FUNCTION 21: Nested if with missing endif
+% -----------------------------------------------------------------------
+_missingEndif input parameter list[int b2, int b3]
+output parameter list[int b4];
+	type int : d7;
+	d7 <--- 0;
+	if(b2 > b3)
+	then
+		if(b2 > 0)
+		then
+			d7 <--- 1;
+		else
+			d7 <--- 2;
+	endif
+	b4 <--- d7;
+	return [b4];
+end
+
+% -----------------------------------------------------------------------
+% FUNCTION 22: While loop with if inside, errors in both
+% -----------------------------------------------------------------------
+_loopErrors input parameter list[int b2]
+output parameter list[int b3];
+	type int : c2;
+	type int : d7;
+	c2 <--- 1;
+	d7 <--- 0;
+	while(c2 <= b2)
+		if(c2 > 5)
+		then
+			d7 <--- d7 + c2 * 2
+		else
+			d7 <--- d7 + c2;
+		endif
+		c2 <--- c2 + 1;
+	endwhile
+	b3 <--- d7;
+	return [b3];
+end
+
+% -----------------------------------------------------------------------
+% FUNCTION 23: boolean expression with wrong logical operator
+% @@ instead of @@@ (lexical error)
+% -----------------------------------------------------------------------
+_badOrOp input parameter list[int b2, int b3]
+output parameter list[int b4];
+	type int : d7;
+	d7 <--- 0;
+	if((b2 > 0) @@ (b3 > 0))
+	then
+		d7 <--- 1;
+	endif
+	b4 <--- d7;
+	return [b4];
+end
+
+% -----------------------------------------------------------------------
+% FUNCTION 24: Writing to an undeclared record field (syntactically ok,
+%              but tests deeply nested field write with error before it)
+% -----------------------------------------------------------------------
+_deepFieldErr input parameter list[record #myrecord b3c45]
+output parameter list[real d3];
+	type real : c7;
+	c7 <--- b3c45.inner.pt.xval + b3c45.inner.pt.yval;
+	d3 <--- c7 * 2.00;
+	return [d3];
+end
+
+% -----------------------------------------------------------------------
+% FUNCTION 25: Various edge case lexer patterns in one line
+% (inspired by t1.txt line 6)
+% -----------------------------------------------------------------------
+_lexerStress input parameter list[int b2]
+output parameter list[int b3];
+	type int : d7;
+	type int : c4bbb;
+	d7 <--- b2;
+	c4bbb <--- d7;
+	b3 <--- c4bbb;
+	return [b3];
+end
+
+% -----------------------------------------------------------------------
+% FUNCTION 26: Correct complex function at end to verify parser still works
+% Uses all remaining features: record, union, definetype, nested while
+% -----------------------------------------------------------------------
+_finalComplex input parameter list[int b2, int b3]
+output parameter list[int b4, real d5];
+	type int : c2;
+	type int : c3;
+	type real : d7;
+	type int : b5;
+	c2 <--- 0;
+	c3 <--- 1;
+	d7 <--- 0.00;
+	b5 <--- 1;
+	while(b5 <= b2)
+		c3 <--- 1;
+		while(c3 <= b3)
+			c2 <--- c2 + b5 * c3;
+			d7 <--- d7 + c2 * 1.00;
+			c3 <--- c3 + 1;
+		endwhile
+		if(c2 > 100)
+		then
+			write(c2);
+		else
+			if(c2 > 50)
+			then
+				write(d7);
+			endif
+		endif
+		b5 <--- b5 + 1;
+	endwhile
+	b4 <--- c2;
+	d5 <--- d7;
+	return [b4, d5];
+end
+
+%===========================================================================
+% MAIN FUNCTION - Has errors mixed with correct code
+%===========================================================================
+_main
+	record #myrecord
+		type real: xval;
+		type real: yval;
+	endrecord
+
+	record #inner
+		type #myrecord: pt;
+		type int: tag;
+	endrecord
+
+	union #numval
+		type int : ival;
+		type real: rval;
+	endunion
+
+	definetype union #numval as #anynum
+
+	type int : b5;
+	type int : d5cb34567;
+	type int : b3b444 : global;
+	type real: c3;
+	type real: c4bd56;
+	type int : b6;
+	type int : b7;
+	type int : c2;
+	type int : d3c;
+
+	b5 <--- 1;
+	d5cb34567 <--- 100;
+	b3b444 <--- 999;
+	c3 <--- 0.00;
+	c4bd56 <--- 3.14E+00;
+
+	[b5] <--- call _baselineCorrect with parameters [b5];
+	write(b5);
+
+	[c3] <--- call _missingList with parameters [b5, d5cb34567, b3b444];
+	write(c3);
+
+	[b5] <--- call _longVarTest with parameters [d5cb34567];
+	write(b5);
+
+	[c3] <--- call _badRealNumber with parameters [b5];
+	write(c3);
+
+	[c3] <--- call _missingParen with parameters [b5, d5cb34567, b3b444];
+	write(c3);
+
+	[b5] <--- call _badLogicalOp with parameters [d5cb34567, b3b444];
+	write(b5);
+
+	[b5] <--- call _missingSemicolon with parameters [d5cb34567];
+	write(b5);
+
+	[b5] <--- call _unknownSymbols with parameters [d5cb34567];
+	write(b5);
+
+	[b5] <--- call _badAssignOp with parameters [d5cb34567];
+	write(b5);
+
+	[b5] <--- call _dotNumberTest with parameters [d5cb34567];
+	write(b5);
+
+	[c3] <--- call _badDecimalOne with parameters [d5cb34567];
+	write(c3);
+
+	[b5] <--- call _unknownAfterOp with parameters [d5cb34567, b3b444];
+	write(b5);
+
+	[b5] <--- call _pipeErrors with parameters [d5cb34567, b3b444];
+	write(b5);
+
+	[b5] <--- call _missingColon with parameters [d5cb34567];
+	write(b5);
+
+	[b5] <--- call _missingThen with parameters [d5cb34567];
+	write(b5);
+
+	[b5] <--- call _missingEndwhile with parameters [d5cb34567];
+	write(b5);
+
+	[b5] <--- call _extraTokensDecl with parameters [d5cb34567];
+	write(b5);
+
+	[b5, c2] <--- call _multiError with parameters [d5cb34567, b3b444];
+	write(b5);
+
+	[b5] <--- call _recoverCheck with parameters [d5cb34567];
+	write(b5);
+
+	[b5] <--- call _loopErrors with parameters [d5cb34567];
+	write(b5);
+
+	[b5] <--- call _badOrOp with parameters [d5cb34567, b3b444];
+	write(b5);
+
+	[b5, c3] <--- call _finalComplex with parameters [d5cb34567, b3b444];
+	write(b5);
+	write(c3);
+
+	write(b5);
+	return;
+end

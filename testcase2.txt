@@ -1,0 +1,599 @@
+
+% -----------------------------------------------------------------------
+% FUNCTION 1: Basic function, input/output parameters, record field access
+% -----------------------------------------------------------------------
+_addVectors input parameter list[record #vecpair b3c45, record #vecpair b5c67]
+output parameter list[record #vecpair d3];
+	type record #vecpair : b7c234;
+	b7c234.xcoord <--- b3c45.xcoord + b5c67.xcoord;
+	b7c234.ycoord <--- b3c45.ycoord + b5c67.ycoord;
+	d3 <--- b7c234;
+	return [d3];
+end
+
+% -----------------------------------------------------------------------
+% FUNCTION 2: while loop, read/write, real number arithmetic
+% -----------------------------------------------------------------------
+_computeSum input parameter list[int b2]
+output parameter list[real d4];
+	type real : c3bd;
+	type real : d7;
+	type int : b5b567;
+	b5b567 <--- 1;
+	d7 <--- 0.00;
+	while(b5b567 <= b2)
+		read(c3bd);
+		d7 <--- d7 + c3bd;
+		b5b567 <--- b5b567 + 1;
+	endwhile
+	d4 <--- d7 / b2;
+	return [d4];
+end
+
+% -----------------------------------------------------------------------
+% FUNCTION 3: if-then-else-endif, all boolean operators, nested if
+% -----------------------------------------------------------------------
+_classify input parameter list[real d3]
+output parameter list[int b4];
+	type int : b7;
+	type real : c6bdd;
+	c6bdd <--- 100.00;
+	if(d3 > c6bdd)
+	then
+		b7 <--- 1;
+	else
+		if(d3 == 0.00)
+		then
+			b7 <--- 0;
+		else
+			b7 <--- 2;
+		endif
+	endif
+	if((~(d3 == 0.00)) &&& (d3 > 0.00))
+	then
+		b4 <--- b7;
+	else
+		b4 <--- 0 - b7;
+	endif
+	return [b4];
+end
+
+% -----------------------------------------------------------------------
+% FUNCTION 4: function calls, multiple output parameters
+% -----------------------------------------------------------------------
+_process input parameter list[int c2, int c3, int c4]
+output parameter list[real d5, int b6];
+	type real : d3;
+	type int : b2b345;
+	b2b345 <--- c2 + c3 + c4;
+	[d3] <--- call _computeSum with parameters [b2b345];
+	[b6] <--- call _classify with parameters [d3];
+	d5 <--- d3;
+	return [d5, b6];
+end
+
+% -----------------------------------------------------------------------
+% FUNCTION 5: record declarations, field access patterns
+% -----------------------------------------------------------------------
+_handlePoints input parameter list[int b2]
+output parameter list[real d3];
+	type real : c4bd56;
+	type int  : b5;
+	type record #coord : d7c23;
+	type record #coord : b3c456;
+	d7c23.xpt <--- 10.50;
+	d7c23.ypt <--- 20.75;
+	b3c456.xpt <--- 30.00;
+	b3c456.ypt <--- 40.25;
+	c4bd56 <--- d7c23.xpt + b3c456.xpt;
+	b5 <--- 1;
+	while(b5 <= b2)
+		c4bd56 <--- c4bd56 + d7c23.ypt * b5;
+		b5 <--- b5 + 1;
+	endwhile
+	d3 <--- c4bd56;
+	return [d3];
+end
+
+% -----------------------------------------------------------------------
+% FUNCTION 6: Deeply nested arithmetic, RNUM with exponents
+% -----------------------------------------------------------------------
+_complexMath input parameter list[real d3, real d4, real d5]
+output parameter list[real d6];
+	type real : c7;
+	type real : c6bdd;
+	type real : d7;
+	c7 <--- ((d3 + d4) * (d5 - 2.50)) / (d3 + 1.00);
+	c6bdd <--- 123.45E+12;
+	d7 <--- c7 + c6bdd - 99.99E-05;
+	d6 <--- ((d7 * 2.00) + (c7 / 3.00)) - (d3 * d4 + d5);
+	return [d6];
+end
+
+% -----------------------------------------------------------------------
+% FUNCTION 7: TK_ID boundary patterns (exhaustive)
+% Pattern: [b-d][2-7][b-d]*[2-7]* with max 20 chars
+% -----------------------------------------------------------------------
+_testIds input parameter list[int b2]
+output parameter list[int b3];
+	type int : b2;
+	type int : c3;
+	type int : d4;
+	type int : b2b;
+	type int : c3c;
+	type int : d4d;
+	type int : b2bbb;
+	type int : c3ccc;
+	type int : d4ddd;
+	type int : b2bbb34;
+	type int : c3ccc567;
+	type int : d4ddd77;
+	type int : b2bbbbbbbbbbbb234567;
+	type int : c3cccccccccccc;
+	type int : d4dddddddddddddddd77;
+	b2 <--- 1;
+	c3 <--- 2;
+	d4 <--- 3;
+	b2b <--- b2 + c3;
+	c3c <--- c3 + d4;
+	d4d <--- d4 + b2;
+	b2bbb <--- b2b + c3c;
+	c3ccc <--- c3c + d4d;
+	d4ddd <--- d4d + b2bbb;
+	b2bbb34 <--- b2bbb + c3ccc;
+	c3ccc567 <--- c3ccc + d4ddd;
+	d4ddd77 <--- d4ddd + b2bbb34;
+	b2bbbbbbbbbbbb234567 <--- 100;
+	c3cccccccccccc <--- 200;
+	d4dddddddddddddddd77 <--- 300;
+	b3 <--- b2bbbbbbbbbbbb234567 + c3cccccccccccc + d4dddddddddddddddd77;
+	return [b3];
+end
+
+% -----------------------------------------------------------------------
+% FUNCTION 8: Short FUNID
+% -----------------------------------------------------------------------
+_ab input parameter list[int c2]
+output parameter list[int b3];
+	b3 <--- c2 * 2;
+	return [b3];
+end
+
+% -----------------------------------------------------------------------
+% FUNCTION 9: Longer FUNID with mixed case and digits
+% -----------------------------------------------------------------------
+_abcDEFghi123 input parameter list[int c2]
+output parameter list[int b3];
+	[b3] <--- call _ab with parameters [c2];
+	b3 <--- b3 + 1;
+	return [b3];
+end
+
+% -----------------------------------------------------------------------
+% FUNCTION 10: RUID and FIELDID patterns, keyword vs field id
+% -----------------------------------------------------------------------
+_recordOps input parameter list[record #student b3c45]
+output parameter list[real d3];
+	type real : c4;
+	type real : c5;
+	c4 <--- b3c45.marks;
+	c5 <--- b3c45.grade;
+	d3 <--- (c4 + c5) / 2.00;
+	return [d3];
+end
+
+% -----------------------------------------------------------------------
+% FUNCTION 11: multiple reads and writes
+% -----------------------------------------------------------------------
+_multiIO input parameter list[int b2]
+output parameter list[int b3, int b4, int b5];
+	type int : c3;
+	type int : c4;
+	type int : c5;
+	type int : d7;
+	read(c3);
+	read(c4);
+	read(c5);
+	d7 <--- c3 + c4 + c5 + b2;
+	write(c3);
+	write(c4);
+	write(c5);
+	write(d7);
+	b3 <--- c3;
+	b4 <--- c4;
+	b5 <--- c5;
+	return [b3, b4, b5];
+end
+
+% -----------------------------------------------------------------------
+% FUNCTION 12: nested while loops
+% -----------------------------------------------------------------------
+_nestedWhile input parameter list[int b2, int b3]
+output parameter list[int b4];
+	type int : c2;
+	type int : c3;
+	type int : d7;
+	d7 <--- 0;
+	c2 <--- 1;
+	while(c2 <= b2)
+		c3 <--- 1;
+		while(c3 <= b3)
+			d7 <--- d7 + c2 * c3;
+			c3 <--- c3 + 1;
+		endwhile
+		c2 <--- c2 + 1;
+	endwhile
+	b4 <--- d7;
+	return [b4];
+end
+
+% -----------------------------------------------------------------------
+% FUNCTION 13: all six relational operators
+% -----------------------------------------------------------------------
+_testRelOps input parameter list[int b2, int b3]
+output parameter list[int b4];
+	type int : d7;
+	d7 <--- 0;
+	if(b2 < b3)
+	then
+		d7 <--- 1;
+	endif
+	if(b2 <= b3)
+	then
+		d7 <--- d7 + 10;
+	endif
+	if(b2 > b3)
+	then
+		d7 <--- d7 + 100;
+	endif
+	if(b2 >= b3)
+	then
+		d7 <--- d7 + 1000;
+	endif
+	if(b2 == b3)
+	then
+		d7 <--- d7 + 10000;
+	endif
+	if(b2 != b3)
+	then
+		d7 <--- d7 + 100000;
+	endif
+	b4 <--- d7;
+	return [b4];
+end
+
+% -----------------------------------------------------------------------
+% FUNCTION 14: &&& and @@@ and ~ in boolean expressions
+% -----------------------------------------------------------------------
+_testLogical input parameter list[int b2, int b3, int b4]
+output parameter list[int b5];
+	type int : d7;
+	d7 <--- 0;
+	if((b2 > b3) &&& (b3 > b4))
+	then
+		d7 <--- 1;
+	endif
+	if((b2 < b3) @@@ (b3 < b4))
+	then
+		d7 <--- d7 + 10;
+	endif
+	if(~(b2 == b3))
+	then
+		d7 <--- d7 + 100;
+	endif
+	if((~(b2 == 0)) &&& (~(b3 == 0)))
+	then
+		d7 <--- d7 + 1000;
+	endif
+	b5 <--- d7;
+	return [b5];
+end
+
+% -----------------------------------------------------------------------
+% FUNCTION 15: various real number patterns
+% -----------------------------------------------------------------------
+_testRealNums input parameter list[int b2]
+output parameter list[real d3];
+	type real : c7;
+	type real : c6bdd;
+	c7 <--- 0.00;
+	c6bdd <--- 99.99;
+	c7 <--- c7 + 1.23E+45;
+	c7 <--- c7 - 67.89E-12;
+	c7 <--- c7 * 11.11E+00;
+	c7 <--- c7 / 22.22E-99;
+	c6bdd <--- c6bdd + b2 * 1.00;
+	d3 <--- c7 + c6bdd;
+	return [d3];
+end
+
+% -----------------------------------------------------------------------
+% FUNCTION 16: global variable declarations
+% -----------------------------------------------------------------------
+_useGlobal input parameter list[int b2]
+output parameter list[int b3];
+	type int : b5 : global;
+	type int : d7 : global;
+	b5 <--- b2 + 100;
+	d7 <--- b5 * 2;
+	b3 <--- d7;
+	return [b3];
+end
+
+% -----------------------------------------------------------------------
+% FUNCTION 17: deeply nested if-else (3 levels)
+% -----------------------------------------------------------------------
+_deepNesting input parameter list[int b2, int b3, int b4]
+output parameter list[int b5];
+	type int : d7;
+	d7 <--- 0;
+	if(b2 > 0)
+	then
+		if(b3 > 0)
+		then
+			if(b4 > 0)
+			then
+				d7 <--- 1;
+			else
+				d7 <--- 2;
+			endif
+		else
+			if(b4 > 0)
+			then
+				d7 <--- 3;
+			else
+				d7 <--- 4;
+			endif
+		endif
+	else
+		if(b3 > 0)
+		then
+			if(b4 > 0)
+			then
+				d7 <--- 5;
+			else
+				d7 <--- 6;
+			endif
+		else
+			if(b4 > 0)
+			then
+				d7 <--- 7;
+			else
+				d7 <--- 8;
+			endif
+		endif
+	endif
+	b5 <--- d7;
+	return [b5];
+end
+
+% -----------------------------------------------------------------------
+% FUNCTION 18: while with if inside
+% -----------------------------------------------------------------------
+_loopCond input parameter list[int b2]
+output parameter list[int b3];
+	type int : c2;
+	type int : d7;
+	c2 <--- 1;
+	d7 <--- 0;
+	while(c2 <= b2)
+		if(c2 > 5)
+		then
+			d7 <--- d7 + c2 * 2;
+		else
+			d7 <--- d7 + c2;
+		endif
+		c2 <--- c2 + 1;
+	endwhile
+	b3 <--- d7;
+	return [b3];
+end
+
+% -----------------------------------------------------------------------
+% FUNCTION 19: operator precedence, parenthesized sub-expressions
+% -----------------------------------------------------------------------
+_testPrec input parameter list[int b2, int b3, int b4]
+output parameter list[int b5];
+	type int : d7;
+	type int : c2;
+	type int : c3;
+	d7 <--- b2 + b3 * b4;
+	c2 <--- (b2 + b3) * b4;
+	c3 <--- b2 * (b3 + b4);
+	b5 <--- d7 + c2 - c3;
+	return [b5];
+end
+
+% -----------------------------------------------------------------------
+% FUNCTION 20: endif immediately after then (no else)
+% -----------------------------------------------------------------------
+_minIf input parameter list[int b2]
+output parameter list[int b3];
+	type int : d7;
+	d7 <--- b2;
+	if(d7 > 0)
+	then
+		d7 <--- d7 + 1;
+	endif
+	b3 <--- d7;
+	return [b3];
+end
+
+% -----------------------------------------------------------------------
+% FUNCTION 21: record with deeply nested field access
+% -----------------------------------------------------------------------
+_deepAccess input parameter list[record #compound b3c45]
+output parameter list[real d3];
+	type real : c7;
+	c7 <--- b3c45.inner.pt.xpt + b3c45.inner.pt.ypt;
+	d3 <--- c7 * 2.00;
+	return [d3];
+end
+
+% -----------------------------------------------------------------------
+% FUNCTION 22: chain of function calls
+% -----------------------------------------------------------------------
+_chainCall input parameter list[int b2]
+output parameter list[int b3];
+	type int : c2;
+	type int : c3;
+	[c2] <--- call _ab with parameters [b2];
+	[c3] <--- call _ab with parameters [c2];
+	[b3] <--- call _ab with parameters [c3];
+	return [b3];
+end
+
+%===========================================================================
+% MAIN FUNCTION - Uses all features together
+%===========================================================================
+_main
+	record #vecpair
+		type real: xcoord;
+		type real: ycoord;
+	endrecord
+
+	record #coord
+		type real: xpt;
+		type real: ypt;
+	endrecord
+
+	record #student
+		type real: marks;
+		type real: grade;
+	endrecord
+
+	record #inner
+		type #coord: pt;
+		type int: tag;
+	endrecord
+
+	definetype record #coord as #pointalias
+
+	union #numval
+		type int :  ival;
+		type real:  rval;
+	endunion
+
+	definetype union #numval as #anynum
+
+	record #compound
+		type #inner: inner;
+		type int: flag;
+	endrecord
+
+	record #variantrec
+		type int: tag;
+		type #anynum: val;
+	endrecord
+
+	type int : b5;
+	type int : d5cb34567;
+	type int : b3b444 : global;
+	type real: c3;
+	type real: c4bd56;
+	type record #vecpair : d4;
+	type record #vecpair : b7c234;
+	type record #coord : d7c23;
+	type record #student : b3c45;
+	type record #variantrec : c2c345;
+	type int : b2b345;
+	type int : b6;
+	type int : b7;
+	type int : c2;
+	type int : d3c;
+
+	b5 <--- 1;
+	d5cb34567 <--- 100;
+	b3b444 <--- 999;
+	c3 <--- 0.00;
+	c4bd56 <--- 3.14E+00;
+
+	d4.xcoord <--- 10.50;
+	d4.ycoord <--- 20.75;
+	b7c234.xcoord <--- 30.00;
+	b7c234.ycoord <--- 40.25;
+
+	[d4] <--- call _addVectors with parameters [d4, b7c234];
+
+	write(d4.xcoord);
+	write(d4.ycoord);
+
+	[c3] <--- call _computeSum with parameters [d5cb34567];
+	write(c3);
+
+	[b5] <--- call _classify with parameters [c3];
+	write(b5);
+
+	[c4bd56, b2b345] <--- call _process with parameters [b5, d5cb34567, b3b444];
+	write(c4bd56);
+	write(b2b345);
+
+	[c3] <--- call _handlePoints with parameters [b5];
+	write(c3);
+
+	[c3] <--- call _complexMath with parameters [c4bd56, c3, c4bd56];
+	write(c3);
+
+	[b5] <--- call _testIds with parameters [b5];
+	write(b5);
+
+	[b5] <--- call _abcDEFghi123 with parameters [b5];
+	write(b5);
+
+	b3c45.marks <--- 85.50;
+	b3c45.grade <--- 90.00;
+	[c3] <--- call _recordOps with parameters [b3c45];
+	write(c3);
+
+	[b5, b6, b7] <--- call _multiIO with parameters [b2b345];
+	write(b5);
+	write(b6);
+	write(b7);
+
+	[b5] <--- call _nestedWhile with parameters [d5cb34567, b3b444];
+	write(b5);
+
+	[b5] <--- call _testRelOps with parameters [d5cb34567, b3b444];
+	write(b5);
+
+	[c2] <--- call _testLogical with parameters [b5, d5cb34567, b3b444];
+	write(c2);
+
+	[c3] <--- call _testRealNums with parameters [b5];
+	write(c3);
+
+	[b5] <--- call _useGlobal with parameters [d5cb34567];
+	write(b5);
+
+	[b5] <--- call _deepNesting with parameters [d5cb34567, b3b444, b2b345];
+	write(b5);
+
+	[b5] <--- call _loopCond with parameters [d5cb34567];
+	write(b5);
+
+	[b5] <--- call _testPrec with parameters [d5cb34567, b3b444, b2b345];
+	write(b5);
+
+	[b5] <--- call _minIf with parameters [d5cb34567];
+	write(b5);
+
+	[b5] <--- call _chainCall with parameters [d5cb34567];
+	write(b5);
+
+	d3c <--- 0;
+	while(d3c <= 5)
+		if(d3c > 2)
+		then
+			write(d3c);
+		else
+			d3c <--- d3c + 1;
+		endif
+		d3c <--- d3c + 1;
+	endwhile
+
+	c2c345.tag <--- 1;
+	write(c2c345.tag);
+
+	write(b5);
+	return;
+end
